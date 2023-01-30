@@ -3,3 +3,8 @@ type Place = {
   location: string;
   distance: string;
 };
+
+type LiveAnywherePlace = {
+  img: string;
+  title: string;
+};

@@ -5,14 +5,16 @@ import styles from "@/styles/Home.module.css";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import SmallCard from "./components/SmallCard";
+import MediumCard from "./components/MediumCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
 type Props = {
   exploreData: Place[];
+  cardData: LiveAnywherePlace[];
 };
 
-export default function Home({ exploreData }: Props) {
+export default function Home({ exploreData, cardData }: Props) {
   return (
     <div className="">
       <Head>
@@ -34,6 +36,14 @@ export default function Home({ exploreData }: Props) {
             ))}
           </div>
         </section>
+        <section>
+          <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
+          <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3">
+            {cardData?.map((card) => (
+              <MediumCard key={card.img} liveAnywherePlace={card} />
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );
@@ -41,14 +51,18 @@ export default function Home({ exploreData }: Props) {
 
 // we want server rendering!
 export async function getStaticProps() {
-  //const exploreData = await fetch("https://links.papareact.com/pyp").then(
   const exploreData: Location[] = await fetch(
     "https://www.jsonkeeper.com/b/4G1G"
   ).then((res) => res.json());
-  console.log("exploreData:", exploreData);
+
+  const cardData: LiveAnywherePlace[] = await fetch(
+    "https://www.jsonkeeper.com/b/VHHT"
+  ).then((res) => res.json());
+  console.log("cardData:", cardData);
   return {
     props: {
       exploreData,
+      cardData,
     },
   };
 }
