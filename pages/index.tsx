@@ -7,6 +7,7 @@ import Banner from "./components/Banner";
 import SmallCard from "./components/SmallCard";
 import MediumCard from "./components/MediumCard";
 import LargeCard from "./components/LargeCard";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,6 +54,7 @@ export default function Home({ exploreData, cardData }: Props) {
           buttonText="Get Inspired"
         />
       </main>
+      <Footer />
     </div>
   );
 }
