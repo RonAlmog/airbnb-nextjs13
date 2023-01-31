@@ -17,11 +17,23 @@ function Header() {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [numOfGuests, setNumOfGuests] = useState(1);
+  const [noOfGuests, setNoOfGuests] = useState(1);
   const router = useRouter();
 
   const resetInput = () => {
     setSearchInput("");
+  };
+
+  const search = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        noOfGuests,
+      },
+    });
   };
 
   const selectionRange: Range = {
@@ -81,8 +93,8 @@ function Header() {
             <UsersIcon className="h-5" />
             <input
               type="number"
-              value={numOfGuests}
-              onChange={(e) => setNumOfGuests(+e.target.value)}
+              value={noOfGuests}
+              onChange={(e) => setNoOfGuests(+e.target.value)}
               className="w-12 pl-2 outline-none text-red-400"
               min={1}
               max={20}
@@ -92,7 +104,9 @@ function Header() {
             <button onClick={resetInput} className="flex-grow text-gray-500">
               Cancel
             </button>
-            <button className="flex-grow text-red-400">Search</button>
+            <button onClick={search} className="flex-grow text-red-400">
+              Search
+            </button>
           </div>
         </div>
       )}
