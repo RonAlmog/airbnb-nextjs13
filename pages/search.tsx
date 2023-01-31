@@ -4,8 +4,11 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { format, parse } from "date-fns";
 import { toDate } from "date-fns/esm";
-
-function Search() {
+import InfoCard from "./components/InfoCard";
+type Props = {
+  searchResults: Info[];
+};
+function Search({ searchResults }: Props) {
   const router = useRouter();
   const { location, noOfGuests } = router.query;
   const startDate: string =
@@ -34,6 +37,10 @@ function Search() {
             <p className="button">Rooms and Beds</p>
             <p className="button">More Filtersz</p>
           </div>
+          <div className="flex flex-col"></div>
+          {searchResults.map((item) => (
+            <InfoCard key={item.img} info={item} />
+          ))}
         </section>
       </main>
       <Footer />
@@ -42,3 +49,15 @@ function Search() {
 }
 
 export default Search;
+
+export async function getServerSideProps() {
+  const searchResults: Info[] = await fetch(
+    "https://www.jsonkeeper.com/b/5NPS"
+  ).then((res) => res.json());
+
+  return {
+    props: {
+      searchResults,
+    },
+  };
+}
