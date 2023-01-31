@@ -1,15 +1,30 @@
+import { useRouter } from "next/router";
 import React from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { format, parse } from "date-fns";
+import { toDate } from "date-fns/esm";
 
 function Search() {
+  const router = useRouter();
+  const { location, noOfGuests } = router.query;
+  const startDate: string = router.query.startDate?.toString() || "";
+  const endDate: string = router.query.endDate?.toString() || "";
+  const formattedStartDate = format(new Date(startDate), "dd MMMM yy");
+  const formattedEndDate = format(new Date(endDate), "dd MMMM yy");
+  const range = `${formattedStartDate} - ${formattedEndDate}`;
+
   return (
     <div className="">
       <Header />
       <main className="flex">
         <section className="flex-grow pt-14 px-6">
-          <p className="text-xs">300+ Stays for you</p>
-          <h1 className="text-3xl font-semibold nt-2 mb-6">Stays in mars</h1>
+          <p className="text-xs">
+            300+ Stays - {range} - for {noOfGuests} guests
+          </p>
+          <h1 className="text-3xl font-semibold nt-2 mb-6">
+            Stays in {location}
+          </h1>
           <div className="hidden lg:inline-flex space-x-3 text-gray-800 whitespace-nowrap">
             <p className="button">Cancelation flexibility</p>
             <p className="button">Type of Place</p>
