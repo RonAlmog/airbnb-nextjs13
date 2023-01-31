@@ -5,6 +5,7 @@ import {
   Bars3Icon,
   UserCircleIcon,
   UsersIcon,
+  UserIcon,
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import "react-date-range/dist/styles.css"; // main style file
@@ -15,6 +16,12 @@ function Header() {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [numOfGuests, setNumOfGuests] = useState(1);
+
+  const resetInput = () => {
+    setSearchInput("");
+  };
+
   const selectionRange: Range = {
     startDate: startDate,
     endDate: endDate,
@@ -55,13 +62,33 @@ function Header() {
         </div>
       </div>
       {searchInput && (
-        <div>
+        <div className="flex flex-col col-span-3 mx-auto mt-2">
           <DateRangePicker
             ranges={[selectionRange]}
             minDate={new Date()}
             rangeColors={["#FD5B61"]}
             onChange={handleSelect}
           />
+          <div className="flex items-center border-b">
+            <h2 className="text-2xl flex-grow font-semibold">
+              Number of Guests
+            </h2>
+            <UsersIcon className="h-5" />
+            <input
+              type="number"
+              value={numOfGuests}
+              onChange={(e) => setNumOfGuests(+e.target.value)}
+              className="w-12 pl-2 outline-none text-red-400"
+              min={1}
+              max={20}
+            />
+          </div>
+          <div className="flex mt-2">
+            <button onClick={resetInput} className="flex-grow text-gray-500">
+              Cancel
+            </button>
+            <button className="flex-grow text-red-400">Search</button>
+          </div>
         </div>
       )}
     </header>
