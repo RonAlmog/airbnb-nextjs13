@@ -15,7 +15,7 @@ function Search() {
             <p className="button">Type of Place</p>
             <p className="button">Price</p>
             <p className="button">Rooms and Beds</p>
-            <p className="button">More Filters</p>
+            <p className="button">More Filtersz</p>
           </div>
         </section>
       </main>
