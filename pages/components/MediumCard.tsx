@@ -15,7 +15,7 @@ function MediumCard({ liveAnywherePlace }: Props) {
           alt=""
         />
       </div>
-      <h3 className="text-2xl mt-3">{liveAnywherePlace.title}</h3>
+      <h3 className="text-2xl mt-3">{liveAnywherePlace?.title}</h3>
     </div>
   );
 }
