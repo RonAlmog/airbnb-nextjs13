@@ -68,7 +68,6 @@ export async function getStaticProps() {
   const cardData: LiveAnywherePlace[] = await fetch(
     "https://www.jsonkeeper.com/b/VHHT"
   ).then((res) => res.json());
-  console.log("cardData:", cardData);
   return {
     props: {
       exploreData,
