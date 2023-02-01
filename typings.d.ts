@@ -15,8 +15,8 @@ type Info = {
   title: string;
   description: string;
   star: number;
-  price: number;
-  total: number;
+  price: string;
+  total: string;
   long: number;
   lat: number;
 };
