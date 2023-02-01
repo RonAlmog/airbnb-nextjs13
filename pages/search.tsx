@@ -44,7 +44,7 @@ function Search({ searchResults }: Props) {
           ))}
         </section>
         <section className="hidden xl:inline-flex xl:min-w-[600px]">
-          <MapPage />
+          <MapPage searchResults={searchResults} />
         </section>
       </main>
       <Footer />
