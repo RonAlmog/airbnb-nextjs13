@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { format, parse } from "date-fns";
 import { toDate } from "date-fns/esm";
 import InfoCard from "./components/InfoCard";
+import MapPage from "./components/MapPage";
 type Props = {
   searchResults: Info[];
 };
@@ -41,6 +42,9 @@ function Search({ searchResults }: Props) {
           {searchResults.map((item) => (
             <InfoCard key={item.img} info={item} />
           ))}
+        </section>
+        <section className="hidden xl:inline-flex xl:min-w-[600px]">
+          <MapPage />
         </section>
       </main>
       <Footer />
