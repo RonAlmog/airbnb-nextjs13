@@ -6,11 +6,20 @@ type Params = {
   searchResults: Info[];
 };
 function MapPage({ searchResults }: Params) {
+  let coordinates = [
+    {
+      latitude: 0,
+      longitude: 0,
+    },
+  ];
+
   // transform the searchResults into like {latitude: 123, longitude: 456}
-  const coordinates = searchResults.map((item) => ({
-    latitude: item.lat,
-    longitude: item.long,
-  }));
+  if (searchResults) {
+    coordinates = searchResults.map((item) => ({
+      latitude: item.lat,
+      longitude: item.long,
+    }));
+  }
   console.log("coordinates", coordinates);
   const center = getCenter(coordinates);
   console.log("center", center);
