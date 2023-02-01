@@ -9,7 +9,7 @@ function InfoCard({ info }: Props) {
   return (
     <div className="flex py-7 px-2 cursor-pointer hover:opacity-80 hover:shadow-lg rounded-lg transition duration-200 ease-out first:border-t">
       <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
-        <Image src={info.img} fill alt={info.title} />
+        {info.img && <Image src={info.img} fill alt={info.title} />}
       </div>
       <div className="flex flex-col flex-grow pl-5">
         <div className="flex justify-between">
