@@ -20,24 +20,24 @@ function InfoCard({ info }: Props) {
       </div>
       <div className="flex flex-col flex-grow pl-5">
         <div className="flex justify-between">
-          <p>{info.location}</p>
+          <p>{info?.location}</p>
           <HeartIcon className="h-7 cursor-pointer" />
         </div>
-        <h4 className="text-xl">{info.title}</h4>
+        <h4 className="text-xl">{info?.title}</h4>
         <div className="border-b w-10 pt-2" />
         <p className="pt-2 text-sm text-gray-500 flex-grow">
-          {info.description}
+          {info?.description}
         </p>
         <div className="flex justify-between items-end pt-5">
           <p className="flex items-center">
             <StarIcon className="h-5 text-red-400" />
-            {info.star}
+            {info?.star}
           </p>
           <div>
             <p className="text-lg lg:text-2xl font-semibold pb-2 ">
-              {info.price}
+              {info?.price}
             </p>
-            <p className="text-right font-extralight">{info.total}</p>
+            <p className="text-right font-extralight">{info?.total}</p>
           </div>
         </div>
       </div>
