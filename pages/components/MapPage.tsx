@@ -1,6 +1,13 @@
 import { useState } from "react";
-import Map, { ViewStateChangeEvent } from "react-map-gl";
+import Map, {
+  ViewStateChangeEvent,
+  Marker,
+  Popup,
+  NavigationControl,
+} from "react-map-gl";
 import { getCenter } from "geolib";
+import Image from "next/image";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 type Params = {
   searchResults: Info[];
@@ -20,9 +27,8 @@ function MapPage({ searchResults }: Params) {
       longitude: item.long,
     }));
   }
-  console.log("coordinates", coordinates);
+
   const center = getCenter(coordinates);
-  console.log("center", center);
   let longitude = 0;
   let latitude = 0;
   if (center) {
@@ -30,23 +36,37 @@ function MapPage({ searchResults }: Params) {
     latitude = center.latitude;
   }
 
-  const [viewport, setViewport] = useState({
+  const [viewState, setViewState] = useState({
     longitude,
     latitude,
-    zoom: 8,
+    zoom: 12,
   });
 
   return (
     <Map
-      initialViewState={{ ...viewport }}
-      style={{ width: "100%", height: "100%" }}
+      {...viewState}
+      //style={{ width: "100%", height: "100%" }}
       mapStyle="mapbox://styles/ronalmog/cldkz3n25007d01mi9jx7e1gs"
+      // mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={process.env.mapbox_key}
-      onMove={(e: ViewStateChangeEvent) => {
-        console.log(e.viewState);
-        setViewport(e.viewState);
-      }}
-    ></Map>
+      minZoom={3}
+      maxZoom={18}
+      onMove={(event: ViewStateChangeEvent) => setViewState(event.viewState)}
+    >
+      {searchResults.map((result) => {
+        return (
+          <Marker
+            key={result.long}
+            longitude={result.long}
+            latitude={result.lat}
+          >
+            <div className="text-xl">🏠</div>
+          </Marker>
+        );
+      })}
+
+      <NavigationControl showCompass={true} position={"top-right"} />
+    </Map>
   );
 }
 
