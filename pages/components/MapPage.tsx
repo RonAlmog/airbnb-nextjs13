@@ -1,18 +1,22 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import Map, {
   ViewStateChangeEvent,
   Marker,
   Popup,
   NavigationControl,
+  PopupEvent,
 } from "react-map-gl";
 import { getCenter } from "geolib";
-import Image from "next/image";
 import "mapbox-gl/dist/mapbox-gl.css";
+import Image from "next/image";
 
 type Params = {
   searchResults: Info[];
 };
 function MapPage({ searchResults }: Params) {
+  useEffect(() => {}, []);
+
   let coordinates = [
     {
       latitude: 0,
@@ -42,6 +46,12 @@ function MapPage({ searchResults }: Params) {
     zoom: 12,
   });
 
+  const [selectedLocation, setSelectedLocation] = useState<any>({
+    lat: "123",
+    long: "234",
+  });
+  // console.log("selectedLocation", selectedLocation);
+  // console.log("searchResults", searchResults);
   return (
     <Map
       {...viewState}
@@ -55,13 +65,47 @@ function MapPage({ searchResults }: Params) {
       {searchResults &&
         searchResults.map((result) => {
           return (
-            <Marker
-              key={result.long}
-              longitude={result.long}
-              latitude={result.lat}
-            >
-              <div className="text-xl">🏠</div>
-            </Marker>
+            <div key={result.long}>
+              <Marker longitude={result.long} latitude={result.lat}>
+                <p
+                  role="img"
+                  className="text-2xl cursor-pointer"
+                  onClick={() => setSelectedLocation(result)}
+                  aria-label="push-pin"
+                >
+                  🏠
+                </p>
+              </Marker>
+              {selectedLocation.long === result.long ? (
+                <Popup
+                  className="p-0 m-0"
+                  key={result.long}
+                  latitude={result.lat}
+                  longitude={result.long}
+                  anchor="bottom"
+                  closeOnClick={false}
+                  onClose={(e: PopupEvent) => {
+                    setSelectedLocation({ lat: "123", long: "234" });
+                  }}
+                >
+                  <div className="p-3 bg-green-200 border-green-600 border-2 rounded-md hover:shadow-lg hover:scale-105 transition transform duration-200 ease-out z-50">
+                    <h3 className="text-sm">{result.title}</h3>
+                    <div className="relative h-24 w-44">
+                      <Image
+                        src={result?.img}
+                        fill
+                        alt={result?.title}
+                        className="rounded-md"
+                      />
+                    </div>
+
+                    <p>{result.description}</p>
+                  </div>
+                </Popup>
+              ) : (
+                false
+              )}
+            </div>
           );
         })}
 
