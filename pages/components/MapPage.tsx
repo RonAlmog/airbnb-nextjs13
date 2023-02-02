@@ -45,7 +45,6 @@ function MapPage({ searchResults }: Params) {
   return (
     <Map
       {...viewState}
-      //style={{ width: "100%", height: "100%" }}
       mapStyle="mapbox://styles/ronalmog/cldkz3n25007d01mi9jx7e1gs"
       // mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={process.env.mapbox_key}
@@ -53,17 +52,18 @@ function MapPage({ searchResults }: Params) {
       maxZoom={18}
       onMove={(event: ViewStateChangeEvent) => setViewState(event.viewState)}
     >
-      {searchResults.map((result) => {
-        return (
-          <Marker
-            key={result.long}
-            longitude={result.long}
-            latitude={result.lat}
-          >
-            <div className="text-xl">🏠</div>
-          </Marker>
-        );
-      })}
+      {searchResults &&
+        searchResults.map((result) => {
+          return (
+            <Marker
+              key={result.long}
+              longitude={result.long}
+              latitude={result.lat}
+            >
+              <div className="text-xl">🏠</div>
+            </Marker>
+          );
+        })}
 
       <NavigationControl showCompass={true} position={"top-right"} />
     </Map>

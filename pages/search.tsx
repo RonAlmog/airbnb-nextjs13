@@ -43,7 +43,7 @@ function Search({ searchResults }: Props) {
             <InfoCard key={item.img} info={item} />
           ))}
         </section>
-        <section className="hidden xl:inline-flex xl:min-w-[600px]">
+        <section className="hidden xl:inline-flex xl:min-w-[40%] sticky top-[135px] h-[calc(100vh-135px)]">
           <MapPage searchResults={searchResults} />
         </section>
       </main>
